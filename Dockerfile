@@ -1,4 +1,6 @@
-FROM python:3.7.5-buster
+FROM python:3.7
+
+ENV version='0.15'
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
   && apt-get update -q \
@@ -6,24 +8,15 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-
-RUN pip3 install pocketsphinx
-
-RUN git clone -b '0.11' https://github.com/sc0ty/subsync.git
+RUN git clone -b ${version} https://github.com/sc0ty/subsync.git
 
 WORKDIR /subsync
 
 RUN cp subsync/config.py.template subsync/config.py
-RUN sed -i '/wxPython==4.0.6/d' ./requirements.txt
-RUN pip3 install -r requirements.txt
-WORKDIR /subsync/gizmo
+RUN pip3 install pocketsphinx && pip3 install -r requirements.txt
 
-RUN python3 setup.py build
-RUN python3 setup.py install
+RUN python3 setup.py build && python3 setup.py install
 
-WORKDIR /subsync
+WORKDIR /subsync/bin
 
-RUN python3 setup.py build
-RUN python3 setup.py install
-
-ENTRYPOINT [ "python3", "./subsync.py" ]
+ENTRYPOINT [ "python3", "./subsync", "--cli" ]
