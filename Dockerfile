@@ -25,4 +25,6 @@ RUN python3 setup.py build && python3 setup.py install
 
 WORKDIR /subsync/bin
 
+VOLUME /root
+
 ENTRYPOINT [ "python3", "./subsync", "--cli" ]
