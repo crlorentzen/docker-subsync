@@ -4,7 +4,13 @@ ENV version='0.15'
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
   && apt-get update -q \
-  && apt-get install -qy swig ffmpeg libsphinxbase-dev gcc automake autoconf libasound2-dev python3-dev python3-pip build-essential swig git libpulse-dev libtool bison swig libavutil-dev libswscale-dev python3-dev libpulse-dev libpocketsphinx-dev libavformat-dev libswresample-dev libavdevice-dev libavfilter-dev python3-pocketsphinx \
+  && apt-get install -qy \
+  autoconf automake bison build-essential ffmpeg gcc git \
+  libasound2-dev libavdevice-dev libavfilter-dev libavformat-dev \
+  libavutil-dev libpocketsphinx-dev libpulse-dev libsphinxbase-dev \
+  libswresample-dev libswscale-dev libtool \
+  python3-dev python3-pip python3-pocketsphinx \
+  swig \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
