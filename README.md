@@ -1,13 +1,16 @@
 # docker-subsync
 docker version of https://github.com/sc0ty/subsync
 
-With -v options you have to determine the volume (path) of series/movies
+1. Build process clones from release tag.
+2. Exports a /root volume for shared library storage between runs
+  - Recommend storing this as a docker volume, not a bind mount
 
-Examples:\
-docker run -ti -v /mnt/nfs/:/mnt/nfs/ bramfr/docker-subsync
+## Build Instructions
+- Requires a working docker install
+```
+docker build -t docker-subsync https://github.com/crlorentzen/docker-subsync.git
+```
 
-For help ouput use:\
-docker run -ti -v /mnt/nfs/:/mnt/nfs/ bramfr/docker-subsync -h
-
-Single sync example:\
-docker run -ti -v /mnt/nfs/:/mnt/nfs/ bramfr/docker-subsync sync --sub /path/to/serie/serie.en.srt --ref /path/to/serie/serie.mkv --out /path/to/serie/serie.en2.srt
+## Example Run
+`docker run -it --rm -v 'subsync-root:/root' -v "$(pwd):/in" -v "${HOME}/subout/:/out" docker-subsync s
+ync --sub /in/sub.srt --ref /in/movie.mkv --out /out/sub.srt`
