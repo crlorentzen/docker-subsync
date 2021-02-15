@@ -1,6 +1,6 @@
 FROM python:3.7
 
-ENV version='0.15'
+ENV version='0.16'
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
   && apt-get update -q \
