@@ -12,5 +12,5 @@ docker build -t docker-subsync https://github.com/crlorentzen/docker-subsync.git
 ```
 
 ## Example Run
-`docker run -it --rm -v 'subsync-root:/root' -v "/path/to/move/:/in" -v "/path/to/output:/out" docker-subsync s
-ync --sub /in/sub.srt --ref /in/movie.mkv --out /out/sub.srt`
+`docker run -it --rm -v 'subsync-root:/root' -v "/path/to/move/:/in" -v "/path/to/output:/out" docker-subsync \
+sync --sub /in/sub.srt --ref /in/movie.mkv --out /out/sub.srt`
