@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3
 
 ENV version='0.16'
 
